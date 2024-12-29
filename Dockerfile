@@ -28,7 +28,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-FROM artifactory.algol60.net/docker.io/library/alpine:3.17 AS base
+FROM docker.io/library/alpine:3.17 AS base
 
 COPY src/requirements.txt /app/requirements.txt
 
