@@ -86,7 +86,7 @@ def applyPatch(raw_dict, ch_id):
                 return simple_error_response('LimitInWatts out of bounds for %s' % control['@odata.id'], 400)
         newLimits.append(newLimitInWatts)
     for i in range(len(newLimits)):
-        control = members[ch_id][i]
+        control = members[ch_id]['PowerControl'][i]
         if 'PowerLimit' in control and 'LimitInWatts' in control['PowerLimit']:
             control['PowerLimit']['LimitInWatts'] = newLimits[i]
         elif newLimits[i] != 0:
@@ -161,7 +161,7 @@ class PowerAPI(Resource):
             resp = error_404_response(request.path)
             if ch_id in members:
                 if 'PowerControl' in raw_dict and 'PowerControl' in members[ch_id] and \
-                   raw_dict['PowerControl'] == len(members[ch_id]['PowerControl']):
+                   len(raw_dict['PowerControl']) == len(members[ch_id]['PowerControl']):
                     resp = applyPatch(raw_dict['PowerControl'], ch_id)
                 else:
                     resp = simple_error_response('Invalid paramters for PATCH', 400)
